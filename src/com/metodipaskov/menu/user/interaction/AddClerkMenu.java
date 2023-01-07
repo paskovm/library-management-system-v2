@@ -7,7 +7,6 @@ import com.metodipaskov.services.UserManagementService;
 public class AddClerkMenu extends AddUpdateCheckUserMenu {
 
     private Library library = Library.getInstance();
-    private UserManagementService userService = UserManagementService.getInstance();
 
     @Override
     public void start() {

@@ -4,15 +4,11 @@ import com.metodipaskov.entities.Book;
 import com.metodipaskov.entities.HoldRequest;
 import com.metodipaskov.entities.Library;
 import com.metodipaskov.entities.Loan;
-import com.metodipaskov.entities.actors.Borrower;
-import com.metodipaskov.entities.actors.Person;
 import com.metodipaskov.menu.help.AddUpdateCheckBookMenu;
 import com.metodipaskov.services.BookManagementService;
 import com.metodipaskov.services.HoldRequestManagementService;
 import com.metodipaskov.services.LoanManagementService;
-import com.metodipaskov.services.UserManagementService;
 
-import java.util.List;
 import java.util.ListIterator;
 
 public class RemoveBookMenu extends AddUpdateCheckBookMenu {

@@ -1,9 +1,11 @@
 package com.metodipaskov.services;
 
-import com.metodipaskov.entities.actors.*;
+import com.metodipaskov.entities.actors.Clerk;
+import com.metodipaskov.entities.actors.Librarian;
+import com.metodipaskov.entities.actors.Person;
+import com.metodipaskov.entities.actors.Staff;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UserManagementService {

@@ -6,12 +6,10 @@ import com.metodipaskov.entities.actors.Borrower;
 import com.metodipaskov.entities.actors.Person;
 import com.metodipaskov.menu.help.AddUpdateCheckUserMenu;
 import com.metodipaskov.services.LoanManagementService;
-import com.metodipaskov.services.UserManagementService;
 
 public class CheckBorrowerFineMenu extends AddUpdateCheckUserMenu {
 
     private Library library = Library.getInstance();
-    private UserManagementService userService = UserManagementService.getInstance();
     private LoanManagementService loanService = LoanManagementService.getInstance();
 
     @Override

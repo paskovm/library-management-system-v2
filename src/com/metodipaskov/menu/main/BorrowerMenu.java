@@ -6,7 +6,6 @@ import com.metodipaskov.menu.Menu;
 import com.metodipaskov.menu.book.interaction.CheckBookHoldReqMenu;
 import com.metodipaskov.menu.book.interaction.PlaceBookOnHoldMenu;
 import com.metodipaskov.menu.book.interaction.SearchBookMenu;
-import com.metodipaskov.services.HoldRequestManagementService;
 import com.metodipaskov.services.LoanManagementService;
 
 import java.util.Scanner;
