@@ -12,18 +12,7 @@ public class UserManagementService {
     private List<Person> users;
 
     private UserManagementService() {
-//        users = new ArrayList<>();
-        users = new ArrayList<>(Arrays.asList(new Librarian("Emmaline", "McNeilly", "4609 Lakewood Point", 864879778210l, "emcneilly0@wordpress.com", "UOIBTReU1L", 3000.0, 1),
-                new Clerk("Lorrin", "Soloway", "9 Artisan Junction", 622931381714l, "lsoloway1@cam.ac.uk", "e9gIIOTBFcK", 2300.0, 3),
-                new Clerk("Carla", "O'Hartnedy", "57944 Springview Point", 73956181600l, "cohartnedy2@tuttocitta.it", "sLxgrQAL91", 1900.0, 5),
-                new Borrower("Hallsy", "Brims", "2497 Bunker Hill Court", 927017732041l, "hbrims3@jugem.jp", "F3WqEasVOH"),
-                new Borrower("Bob", "Thaxter", "8918 Clove Plaza", 863977596029l, "bthaxter4@slashdot.org", "fbYRdXTGW"),
-                new Borrower("Jammal", "Doulden", "47 Badeau Place", 625692785206l, "jdoulden5@furl.net", "rhBDE1Tly"),
-                new Borrower("Cassandry", "Hawarden", "0572 High Crossing Crossing", 76972916973l, "chawarden6@irs.gov", "sfHIzr6b"),
-                new Borrower("Lane", "Chad", "12719 Magdeline Place", 5028682732622l, "lchad7@oaic.gov.au", "gQtgxaIsv"),
-                new Borrower("Brandise", "Littlejohn", "84247 Oakridge Court", 3517452580679l, "blittlejohn8@gizmodo.com", "RgicdejRI"),
-                new Borrower("Godfree", "Licciardi", "7266 Norway Maple Street", 864317923500l, "glicciardi9@a8.net", "aPxZI4vPn")
-        ));
+        users = new ArrayList<>();
     }
 
     public static UserManagementService getInstance() {

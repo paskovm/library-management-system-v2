@@ -6,8 +6,7 @@ import com.metodipaskov.utils.PopulateLibrary;
 public class Main {
 
     public static void main(String[] args) {
-        PopulateLibrary.collectLoans();
-        PopulateLibrary.collectHoldReq();
+        PopulateLibrary.populate();
 
         new MainMenu().start();
     }
