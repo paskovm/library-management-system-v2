@@ -74,10 +74,6 @@ public class Loan {
         this.finePaid = finePaid;
     }
 
-    public void setBorrowersFine(double borrowersFine) {
-        this.borrowersFine = calculateFine();
-    }
-
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }

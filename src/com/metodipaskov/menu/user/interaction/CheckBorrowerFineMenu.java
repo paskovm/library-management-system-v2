@@ -20,11 +20,7 @@ public class CheckBorrowerFineMenu extends AddUpdateCheckUserMenu {
 
         if (user != null) {
             if (user instanceof Borrower) {
-                Book book = getBook();
-
-                if (book != null) {
-                    loanService.getBorrowersFine((Borrower) user, book);
-                }
+                loanService.printBorrowersFines((Borrower) user);
             } else {
                 System.out.println("The provided user is not borrower!");
             }
@@ -36,7 +32,7 @@ public class CheckBorrowerFineMenu extends AddUpdateCheckUserMenu {
     @Override
     public void printMenuHeader() {
         System.out.println(System.lineSeparator() +
-                            "----------------------------------------------------");
+                "----------------------------------------------------");
         System.out.println("===============  Borrowers Fine Info  ==============");
         System.out.println("----------------------------------------------------");
     }

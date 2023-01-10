@@ -117,7 +117,6 @@ public class LoanManagementService {
                     finesSum += loan.calculateFine();
                 }
             }
-            System.out.println("========================================================");
             System.out.println("Fine(s) sum is = " + finesSum + System.lineSeparator());
         }
     }

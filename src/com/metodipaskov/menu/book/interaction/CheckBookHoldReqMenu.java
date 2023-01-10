@@ -22,9 +22,13 @@ public class CheckBookHoldReqMenu extends AddUpdateCheckBookMenu {
 
         if (book != null) {
             List<HoldRequest> holdRequests = holdRequestService.getHoldRequestsForBook(book);
-            Collections.sort(holdRequests, new HoldReqComparator());
-            for (HoldRequest holdRequest : holdRequests) {
-                holdRequest.printInfo();
+            if (holdRequests.size() > 0) {
+                Collections.sort(holdRequests, new HoldReqComparator());
+                for (HoldRequest holdRequest : holdRequests) {
+                    holdRequest.printInfo();
+                }
+            } else {
+                System.out.println("No hold requests available for book \'" + book.getTitle() + "\'.");
             }
         }
 

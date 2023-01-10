@@ -36,6 +36,82 @@ public class PopulateLibrary {
         collectHoldReq();
     }
 
+    private static void collectLoans() {
+        if (users.isEmpty()) {
+            users = userService.getUsers();
+        }
+        if (books.isEmpty()) {
+            books = bookService.getAllBooksInLibrary();
+        }
+
+        String fileCompletedLoans = ".\\resources\\CompletedLoans.txt";
+        String fileNotCompletedLoans = ".\\resources\\NotCompletedLoans.txt";
+
+        collectLoansFromSourceFile(fileCompletedLoans, true);
+        collectLoansFromSourceFile(fileNotCompletedLoans, false);
+
+    }
+
+    private static void collectLoansFromSourceFile(String filepath, boolean completedLoans) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath));
+             Scanner scanner = new Scanner(reader)) {
+
+            scanner.useDelimiter("\\t");
+            while (scanner.hasNextLine()) {
+
+                int borrowerId = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                int bookId = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                int issuerId = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+
+                LocalDate dateIssued;
+                Integer receiverId = null;
+                LocalDate dateReturned = null;
+                boolean finePaid = true;
+                boolean isIssued = false;
+                Person receiver;
+
+                if (completedLoans) {
+                    dateIssued = LocalDate.parse(scanner.next());
+                    scanner.skip(scanner.delimiter());
+                    receiverId = scanner.nextInt();
+                    scanner.skip(scanner.delimiter());
+                    dateReturned = LocalDate.parse(scanner.nextLine());
+
+                } else {
+                    dateIssued = LocalDate.parse(scanner.nextLine());
+                    finePaid = false;
+                    isIssued = true;
+                }
+
+                Person borrower = getUser(borrowerId);
+                Person issuer = getUser(issuerId);
+                Book book = getBook(bookId);
+
+                Loan loan = new Loan((Borrower) borrower, book, (Staff) issuer);
+                loan.setIssueDate(dateIssued);
+                loan.setFinePaid(finePaid);
+                book.setIssued(isIssued);
+
+                if (completedLoans) {
+                    receiver = getUser(receiverId);
+
+                    loan.setReceiver((Staff) receiver);
+                    loan.setReturnDate(dateReturned);
+                }
+
+                ((Borrower) borrower).addLoan(loan);
+                loans.add(loan);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void collectBooks() {
         books = new ArrayList<>(Arrays.asList(
                 new Book("Children of the Corn V: Fields of Terror", "Gabriela Mistral", "development"),
@@ -195,125 +271,6 @@ public class PopulateLibrary {
         }
     }
 
-    private static void collectLoans() {
-        if (users.isEmpty()) {
-            users = userService.getUsers();
-        }
-        if (books.isEmpty()) {
-            books = bookService.getAllBooksInLibrary();
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(".\\resources\\Loan.txt"));
-             Scanner scanner = new Scanner(reader)) {
-
-            scanner.useDelimiter(",");
-            String input = "";
-
-            while (scanner.hasNextLine()) {
-
-                scanner.skip("\\,?\\s?[A-Za-z].*\\(");
-                int borrowerId = scanner.nextInt();
-                scanner.skip(scanner.delimiter() + "\\s");
-                int bookId = scanner.nextInt();
-                scanner.skip(scanner.delimiter() + "\\s");
-                int issuerId = scanner.nextInt();
-                scanner.skip(scanner.delimiter() + "\\s");
-                LocalDate dateIssued = LocalDate.parse(scanner.next().replaceAll("\'", ""));
-                scanner.skip(scanner.delimiter() + "\\s");
-
-                String temp = scanner.next();
-                LocalDate dateReturned = null;
-                Integer receiverId = null;
-                boolean finePaid = false;
-                boolean isIssued = true;
-
-                if (!temp.startsWith("false")) {
-                    receiverId = Integer.parseInt(temp);
-                    scanner.skip(scanner.delimiter() + " ");
-                    dateReturned = LocalDate.parse(scanner.next().replaceAll("\'", ""));
-                    finePaid = true;
-                    isIssued = false;
-                }
-
-                Person borrower = getUser(borrowerId);
-                Person issuer = getUser(issuerId);
-                Person receiver = receiverId != null ? getUser(receiverId) : null;
-                Book book = getBook(bookId);
-
-                Loan loan = new Loan((Borrower) borrower, book, (Staff) issuer);
-                loan.setIssueDate(dateIssued);
-                loan.setFinePaid(finePaid);
-
-                if (receiver != null) {
-                    loan.setReceiver((Staff) receiver);
-                    loan.setReturnDate(dateReturned);
-                }
-
-                book.setIssued(isIssued);
-                ((Borrower) borrower).addLoan(loan);
-                loans.add(loan);
-
-                input = scanner.nextLine();
-            }
-
-            collectLastLine(input);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void collectLastLine(String input) {
-
-        Scanner scanner1 = new Scanner(input);
-        scanner1.useDelimiter(",");
-        scanner1.skip(scanner1.delimiter() + "\\s");
-        scanner1.skip("[A-Za-z].*\\s\\(");
-        int borrowerId = scanner1.nextInt();
-        scanner1.skip(scanner1.delimiter() + "\\s");
-        int bookId = Integer.parseInt(scanner1.next());
-        scanner1.skip(scanner1.delimiter() + "\\s");
-        int issuerId = scanner1.nextInt();
-        scanner1.skip(scanner1.delimiter() + "\\s");
-        LocalDate dateIssued = LocalDate.parse(scanner1.next().replaceAll("\'", ""));
-        scanner1.skip(scanner1.delimiter() + "\\s");
-
-        String temp = scanner1.next();
-        LocalDate dateReturned = null;
-        Integer receiverId = 0;
-        boolean finePaid = false;
-        boolean isIssued = true;
-
-        if (!temp.startsWith("false")) {
-            receiverId = Integer.parseInt(temp);
-
-            scanner1.skip(scanner1.delimiter() + " ");
-            dateReturned = LocalDate.parse(scanner1.next().replaceAll("\'", ""));
-            finePaid = true;
-            isIssued = false;
-        }
-
-        Person borrower = getUser(borrowerId);
-        Person issuer = getUser(issuerId);
-        Person receiver = receiverId != null ? getUser(receiverId) : null;
-        Book book = getBook(bookId);
-
-        Loan loan = new Loan((Borrower) borrower, book, (Staff) issuer);
-        loan.setIssueDate(dateIssued);
-        loan.setFinePaid(finePaid);
-
-        if (receiver != null) {
-            loan.setReceiver((Staff) receiver);
-            loan.setReturnDate(dateReturned);
-        }
-
-        book.setIssued(isIssued);
-        ((Borrower) borrower).addLoan(loan);
-        loans.add(loan);
-
-        loanService.setLoans(loans);
-    }
-
     private static Person getUser(int id) {
         for (Person user : users) {
             if (user.getId() == id) {
@@ -331,4 +288,5 @@ public class PopulateLibrary {
         }
         return null;
     }
+
 }
