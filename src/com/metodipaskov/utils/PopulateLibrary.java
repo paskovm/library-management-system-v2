@@ -29,6 +29,7 @@ public class PopulateLibrary {
     private static HoldRequestManagementService holdReqService = HoldRequestManagementService.getInstance();
     private static LoanManagementService loanService = LoanManagementService.getInstance();
 
+
     public static void populate() {
         collectBooks();
         collectUsers();
@@ -50,6 +51,7 @@ public class PopulateLibrary {
         collectLoansFromSourceFile(fileCompletedLoans, true);
         collectLoansFromSourceFile(fileNotCompletedLoans, false);
 
+        loanService.setLoans(loans);
     }
 
     private static void collectLoansFromSourceFile(String filepath, boolean completedLoans) {
