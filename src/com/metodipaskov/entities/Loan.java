@@ -71,6 +71,7 @@ public class Loan {
     }
 
     public void setFinePaid(boolean finePaid) {
+        this.borrowersFine = 0;
         this.finePaid = finePaid;
     }
 

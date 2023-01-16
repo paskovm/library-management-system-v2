@@ -76,39 +76,107 @@ public abstract class AddUpdateCheckUserMenu extends AddUpdateCheckBookMenu {
     protected void createUser(String userType) {
 
         System.out.println("----------------------------------------------------");
-        System.out.println(System.lineSeparator() + "Please, provide first name: ");
-        firstName = scanner.nextLine();
-        System.out.println("Please, provide last name: ");
-        lastName = scanner.nextLine();
-        System.out.println("Please, provide address: ");
-        address = scanner.nextLine();
-        System.out.println("Please, provide phone number: ");
-        phoneNumber = Long.parseLong(scanner.nextLine().replace("+", "").replace(" ", "").trim());
-        System.out.println("Please, provide email address: ");
-        email = scanner.nextLine();
-        System.out.println("Please, provide password: ");
-        password = scanner.nextLine();
-        if (userType.equals("Librarian") || userType.equals("Clerk")) {
-            System.out.println("Please, provide users salary: ");
-            salary = Double.parseDouble(scanner.nextLine());
-        }
-        if (userType.equals("Librarian")) {
-            System.out.println("Please, provide users office number: ");
-            officeNumber = Integer.parseInt(scanner.nextLine());
-        }
-        if (userType.equals("Clerk")) {
-            System.out.println("Please, provide users desk number: ");
-            deskNumber = Integer.parseInt(scanner.nextLine());
-        }
 
-        if (!firstName.isEmpty() || !firstName.isBlank() ||
-                !lastName.isEmpty() || !lastName.isBlank() ||
-                !address.isEmpty() || !address.isBlank() ||
-                phoneNumber != 0 ||
-                !email.isEmpty() || !email.isBlank() || email.contains("@") ||
-                !password.isEmpty() || !password.isBlank() ||
-                salary == 0 ||
-                officeNumber == 0) {
+        while (true) {
+            System.out.println(System.lineSeparator() + "Please, provide first name: ");
+            firstName = scanner.nextLine();
+            if (firstName.isBlank() || firstName.isEmpty()) {
+                System.out.println("You can't provide empty value for first name!");
+                break;
+            }
+
+            System.out.println("Please, provide last name: ");
+            lastName = scanner.nextLine();
+            if (lastName.isBlank() || lastName.isEmpty()) {
+                System.out.println("You can't provide empty value for last name!");
+                break;
+            }
+
+            System.out.println("Please, provide address: ");
+            address = scanner.nextLine();
+            if (address.isBlank() || address.isEmpty()) {
+                System.out.println("You can't provide empty value for address!");
+                break;
+            }
+
+            System.out.println("Please, provide phone number: ");
+            String phNum = scanner.nextLine().replace("+", "").replace(" ", "").trim();
+            if (phNum.isBlank() || phNum.isEmpty()) {
+                System.out.println("You can't provide empty value or null for phone number!");
+                break;
+            } else {
+                try {
+                    phoneNumber = Long.parseLong(phNum);
+                } catch (NumberFormatException e) {
+                    System.out.println("The provided value for phone number must be numeric!");
+                    break;
+                }
+            }
+
+            System.out.println("Please, provide email address: ");
+            email = scanner.nextLine();
+            if (email.isBlank() || email.isEmpty()) {
+                System.out.println("You can't provide empty value or for email!");
+                break;
+            } else if (!email.contains("@")) {
+                System.out.println("You haven't provided valid email!");
+                break;
+            }
+
+            System.out.println("Please, provide password: ");
+            password = scanner.nextLine();
+            if (password.isBlank() || password.isEmpty()) {
+                System.out.println("You can't provide empty value or for password!");
+                break;
+            }
+
+            if (userType.equals("Librarian") || userType.equals("Clerk")) {
+                System.out.println("Please, provide users salary: ");
+                String slry = scanner.nextLine();
+                if (slry.isBlank() || slry.isEmpty()) {
+                    System.out.println("You can't provide empty value or null for salary!");
+                    break;
+                } else {
+                    try {
+                        salary = Double.parseDouble(slry);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The provided value for salary must be numeric!");
+                        break;
+                    }
+                }
+            }
+
+            if (userType.equals("Librarian")) {
+                System.out.println("Please, provide users office number: ");
+                String offNum = scanner.nextLine();
+                if (offNum.isBlank() || offNum.isEmpty()) {
+                    System.out.println("You can't provide empty value or null for office number!");
+                    break;
+                } else {
+                    try {
+                        officeNumber = Integer.parseInt(offNum);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The provided value for office must be numeric!");
+                        break;
+                    }
+                }
+            }
+
+            if (userType.equals("Clerk")) {
+                System.out.println("Please, provide users desk number: ");
+                String dskNum = scanner.nextLine();
+                if (dskNum.isBlank() || dskNum.isEmpty()) {
+                    System.out.println("You can't provide empty value or null for desk number!");
+                    break;
+                } else {
+                    try {
+                        deskNumber = Integer.parseInt(dskNum);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The provided value for desk must be numeric!");
+                        break;
+                    }
+                }
+            }
 
             Person user = null;
             if (userType.equals("Borrower")) {
@@ -126,7 +194,9 @@ public abstract class AddUpdateCheckUserMenu extends AddUpdateCheckBookMenu {
                 userService.createUser(user);
                 user.printInfo();
             }
+            break;
         }
+
     }
 
     protected void updateUser(Person user) {
@@ -214,8 +284,15 @@ public abstract class AddUpdateCheckUserMenu extends AddUpdateCheckBookMenu {
             }
         }
 
-        if (firstName != null || lastName != null || address != null || phoneNumber > 0 ||
-                email != null || password != null || salary > 0 || officeNumber > 0 || deskNumber > 0) {
+        if ((firstName != null && !firstName.isEmpty() && !firstName.isEmpty()) ||
+                (lastName != null && !lastName.isBlank() && !lastName.isEmpty()) ||
+                (address != null && !address.isBlank() && !address.isEmpty()) ||
+                phoneNumber > 0 ||
+                (email != null && !email.isBlank() && !email.isEmpty()) ||
+                (password != null && !password.isBlank() && !password.isEmpty()) ||
+                salary > 0 ||
+                officeNumber > 0 ||
+                deskNumber > 0) {
 
             userService.updateUser(user, firstName, lastName, address, phoneNumber, email, password, salary, officeNumber, deskNumber);
 

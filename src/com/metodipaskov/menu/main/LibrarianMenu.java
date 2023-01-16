@@ -102,8 +102,8 @@ public class LibrarianMenu implements Menu {
         System.out.println("3- Check Personal Info of Borrower");
         System.out.println("4- Check Total Fine of Borrower");
         System.out.println("5- Check Hold Requests Queue of a Book");
-        System.out.println("6- Check out a Book");
-        System.out.println("7- Check in a Book");
+        System.out.println("6- Check out a Book(Borrow a Book)");
+        System.out.println("7- Check in a Book(Return a Book)");
         System.out.println("8- Renew a Book");
         System.out.println("9- Add a new Borrower");
         System.out.println("10- Update a Borrower's Info");

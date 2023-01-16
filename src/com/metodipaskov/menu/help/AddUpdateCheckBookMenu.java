@@ -19,7 +19,7 @@ public abstract class AddUpdateCheckBookMenu implements Menu {
             try {
                 System.out.println("----------------------------------------------------");
                 System.out.println("To search a book by id press 1, " + System.lineSeparator() +
-                                    "to search a book by title press 2." + System.lineSeparator());
+                        "to search a book by title press 2." + System.lineSeparator());
                 System.out.println("Enter your choice: ");
 
                 int choice = Integer.parseInt(scanner.nextLine());
@@ -53,32 +53,49 @@ public abstract class AddUpdateCheckBookMenu implements Menu {
 
         return book;
     }
+
     protected void createBook() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("----------------------------------------------------");
-        System.out.println(System.lineSeparator() + "Please, enter books title: ");
-        String title = scanner.nextLine();
+        while (true) {
+            System.out.println("----------------------------------------------------");
+            System.out.println(System.lineSeparator() + "Please, enter books title: ");
+            String title = scanner.nextLine();
+            if (title.isBlank() || title.isEmpty()) {
+                System.out.println("You can't provide empty value for title!");
+                break;
+            }
 
-        System.out.println("Please, enter books author: ");
-        String author = scanner.nextLine();
+            System.out.println("Please, enter books author: ");
+            String author = scanner.nextLine();
+            if (author.isBlank() || author.isEmpty()) {
+                System.out.println("You can't provide empty value for author!");
+                break;
+            }
 
-        System.out.println("Please, enter books genre: ");
-        String genre = scanner.nextLine();
+            System.out.println("Please, enter books genre: ");
+            String genre = scanner.nextLine();
+            if (genre.isBlank() || genre.isEmpty()) {
+                System.out.println("You can't provide empty value for genre!");
+                break;
+            }
 
+            if (title == null || author == null || genre == null) {
+                System.out.println("Problem detected! Empty value provided: ");
+                System.out.println("title: " + title);
+                System.out.println("author: " + author);
+                System.out.println("genre: " + genre);
+                System.out.println("The added book can't have empty value!");
 
-        if (title == null || author == null || genre == null) {
-            System.out.println("Problem detected! Empty value provided: ");
-            System.out.println("title: " + title);
-            System.out.println("author: " + author);
-            System.out.println("genre: " + genre);
-            System.out.println("The added book can't have empty value!");
+            } else {
+                Book book = new Book(title, author, genre);
+                bookService.addBook(book);
+            }
 
-        } else {
-            Book book = new Book(title, author, genre);
-            bookService.addBook(book);
+            break;
         }
     }
+
     protected void updateBookInfo(Book book) {
         Scanner scanner = new Scanner(System.in);
 
@@ -92,8 +109,13 @@ public abstract class AddUpdateCheckBookMenu implements Menu {
         System.out.println("Please, enter books new genre or press enter to continue: ");
         String genre = scanner.nextLine();
 
-        if (title != null || author != null || genre != null) {
+        if ((title != null && !title.isEmpty() && !title.isBlank()) ||
+                (author != null && !author.isEmpty() && !author.isBlank()) ||
+                (genre != null && !genre.isEmpty() && !genre.isBlank())) {
+
             bookService.updateBook(book, title, author, genre);
+        } else {
+            System.out.println("There is nothing to be updated!");
         }
     }
 
