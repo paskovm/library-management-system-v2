@@ -16,15 +16,20 @@ public class PlaceBookOnHoldMenu extends AddUpdateCheckUserMenu {
     @Override
     public void start() {
         printMenuHeader();
-        Person user = getUser();
+        Person user;
+        Person loggedInPerson = library.getLoggedInPerson();
+
+        if (loggedInPerson instanceof Borrower) {
+            user = loggedInPerson;
+        } else {
+            user = getUser();
+        }
 
         if (user != null) {
             if (user instanceof Borrower) {
                 Book book = getBook();
                 if (book != null) {
                     HoldRequest holdRequest = new HoldRequest((Borrower) user, book);
-                    holdRequest.printInfo();
-                    System.out.println("Hold request successfully created.");
                     holdRequestService.createHoldRequest(holdRequest);
                 }
             } else {

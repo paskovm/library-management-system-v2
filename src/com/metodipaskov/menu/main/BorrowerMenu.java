@@ -38,8 +38,12 @@ public class BorrowerMenu implements Menu {
                         break MAIN;
                     case 3:
                         library.getLoggedInPerson().printInfo();
+                        menuToNavigate = this;
+                        break MAIN;
                     case 4:
                         loanService.printBorrowersFines((Borrower) library.getLoggedInPerson());
+                        menuToNavigate = this;
+                        break MAIN;
                     case 5:
                         menuToNavigate = new CheckBookHoldReqMenu();
                         break MAIN;

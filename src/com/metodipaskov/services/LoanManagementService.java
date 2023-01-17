@@ -109,7 +109,7 @@ public class LoanManagementService {
         }
         if (usersLoans.size() > 0) {
             double finesSum = 0;
-            System.out.println("======== Following Loans are available for user "
+            System.out.println(System.lineSeparator() + "======== Following Loans are available for user "
                     + borrower.getFirstName() + " " + borrower.getLastName() + " ========");
             for (Loan loan : usersLoans) {
                 if (!loan.isFinePaid()) {
@@ -117,7 +117,8 @@ public class LoanManagementService {
                     finesSum += loan.calculateFine();
                 }
             }
-            System.out.println("Fine(s) sum is = " + finesSum + System.lineSeparator());
+            System.out.println(System.lineSeparator() + "-----------------------");
+            System.out.println("Fine(s) sum is = $" + finesSum);
         }
     }
 

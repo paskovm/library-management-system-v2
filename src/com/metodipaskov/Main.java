@@ -14,6 +14,9 @@ public class Main {
     *
     * Clerk:
     * "lsoloway1@cam.ac.uk", "e9gIIOTBFcK"
+    *
+    * Borrower:
+    * "glicciardi9@a8.net", "aPxZI4vPn"
     * */
 
     public static void main(String[] args) {

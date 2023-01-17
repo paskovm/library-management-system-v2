@@ -53,8 +53,17 @@ public class HoldRequestManagementService {
     }
 
     public void createHoldRequest(HoldRequest holdRequest) {
+        for (HoldRequest h : holdRequests) {
+            if (h.equals(holdRequest)) {
+                System.out.println("Hold Request already created for this book! Details:");
+                h.printInfo();
+                return;
+            }
+        }
         holdRequests.add(holdRequest);
         holdRequest.getBorrower().addHoldRequest(holdRequest);
+        System.out.println("Hold request successfully created.");
+        holdRequest.printInfo();
     }
 
     public void removeHoldRequest(HoldRequest holdRequest) {
