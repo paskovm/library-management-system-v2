@@ -2,7 +2,6 @@ package com.metodipaskov.menu.user.interaction;
 
 import com.metodipaskov.entities.Library;
 import com.metodipaskov.menu.help.AddUpdateCheckUserMenu;
-import com.metodipaskov.services.UserManagementService;
 
 public class AddClerkMenu extends AddUpdateCheckUserMenu {
 

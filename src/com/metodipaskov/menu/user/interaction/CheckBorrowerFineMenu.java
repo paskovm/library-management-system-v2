@@ -1,6 +1,5 @@
 package com.metodipaskov.menu.user.interaction;
 
-import com.metodipaskov.entities.Book;
 import com.metodipaskov.entities.Library;
 import com.metodipaskov.entities.actors.Borrower;
 import com.metodipaskov.entities.actors.Person;

@@ -28,6 +28,7 @@ public class PopulateLibrary {
     private static BookManagementService bookService = BookManagementService.getInstance();
     private static HoldRequestManagementService holdReqService = HoldRequestManagementService.getInstance();
     private static LoanManagementService loanService = LoanManagementService.getInstance();
+    private static final String resourcesPath = ".\\src\\resources\\";
 
 
     public static void populate() {
@@ -45,8 +46,8 @@ public class PopulateLibrary {
             books = bookService.getAllBooksInLibrary();
         }
 
-        String fileCompletedLoans = ".\\resources\\CompletedLoans.txt";
-        String fileNotCompletedLoans = ".\\resources\\NotCompletedLoans.txt";
+        String fileCompletedLoans = resourcesPath + "CompletedLoans.txt";
+        String fileNotCompletedLoans = resourcesPath + "NotCompletedLoans.txt";
 
         collectLoansFromSourceFile(fileCompletedLoans, true);
         collectLoansFromSourceFile(fileNotCompletedLoans, false);
@@ -245,7 +246,7 @@ public class PopulateLibrary {
             books = bookService.getAllBooksInLibrary();
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(".\\resources\\HoldRequests.txt"));
+        try (BufferedReader reader = new BufferedReader(new FileReader(resourcesPath + "HoldRequests.txt"));
              Scanner scanner = new Scanner(reader)) {
 
             while (scanner.hasNextLine()) {
