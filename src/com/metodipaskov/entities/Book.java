@@ -1,6 +1,8 @@
 package com.metodipaskov.entities;
 
-public class Book {
+import java.util.Comparator;
+
+public class Book implements Comparable<Book> {
 
     private int bookId;
     private String title;
@@ -81,5 +83,15 @@ public class Book {
         System.out.println("Author: " + this.author);
         System.out.println("Genre: " + this.genre);
         System.out.println("The book is available for loan: " + (!isIssued ? "yes" : "no"));
+    }
+
+    @Override
+    public int compareTo(Book book) {
+        return this.title.compareTo(book.getTitle());
+    }
+
+    @Override
+    public String toString() {
+        return this.title;
     }
 }
