@@ -28,7 +28,7 @@ public class PopulateLibrary {
     private static BookManagementService bookService = BookManagementService.getInstance();
     private static HoldRequestManagementService holdReqService = HoldRequestManagementService.getInstance();
     private static LoanManagementService loanService = LoanManagementService.getInstance();
-    private static final String resourcesPath = ".\\src\\resources\\";
+    private static final String resourcesPath = ".\\resources\\";
 
 
     public static void populate() {
